@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\willi\\MVP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B3FA6E63-F102-AA35-6DD1-B1FDE7527F3E}|Assembly-CSharp.csproj|c:\\users\\willi\\mvp\\assets\\scripts\\tempheater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B3FA6E63-F102-AA35-6DD1-B1FDE7527F3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tempheater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TempHeater.cs",
+              "DocumentMoniker": "C:\\Users\\willi\\MVP\\Assets\\Scripts\\TempHeater.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TempHeater.cs",
+              "ToolTip": "C:\\Users\\willi\\MVP\\Assets\\Scripts\\TempHeater.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TempHeater.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAA4wEMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T20:33:53.812Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
