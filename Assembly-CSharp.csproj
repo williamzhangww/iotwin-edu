@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\PlaneGrabTransformer.cs" />
     <Compile Include="Assets\Scripts\DT50_2_LaserSensor.cs" />
     <Compile Include="Assets\Scripts\HideHintOnGrab.cs" />
+    <Compile Include="Assets\Scripts\PT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\CubeStickyToWall.cs" />
   </ItemGroup>
   <ItemGroup>
