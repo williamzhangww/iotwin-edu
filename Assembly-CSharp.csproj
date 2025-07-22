@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\HideHintOnGrab.cs" />
     <Compile Include="Assets\Scripts\PT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\CubeStickyToWall.cs" />
+    <Compile Include="Assets\Scripts\PowerSwitch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
