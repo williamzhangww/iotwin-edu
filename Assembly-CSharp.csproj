@@ -61,12 +61,13 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.49f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\PlaneGrabTransformer.cs" />
-    <Compile Include="Assets\Scripts\DT50_2_LaserSensor.cs" />
-    <Compile Include="Assets\Scripts\HideHintOnGrab.cs" />
-    <Compile Include="Assets\Scripts\PT100HeaterTrigger.cs" />
-    <Compile Include="Assets\Scripts\CubeStickyToWall.cs" />
-    <Compile Include="Assets\Scripts\PowerSwitch.cs" />
+    <Compile Include="Assets\Scripts\VR\HideHintOnGrab.cs" />
+    <Compile Include="Assets\Scripts\VR\PowerSwitch.cs" />
+    <Compile Include="Assets\Scripts\VR\PT100HeaterTrigger.cs" />
+    <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopPlayerController.cs" />
+    <Compile Include="Assets\Scripts\VR\DT50_2_LaserSensor.cs" />
+    <Compile Include="Assets\Scripts\Shared\CubeStickyToWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
