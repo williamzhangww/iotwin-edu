@@ -17,6 +17,11 @@ public class DesktopPowerSwitch : MonoBehaviour
     [Header("音效")]
     public AudioSource audioSource;
 
+    [Header("鼠标手型设置")]
+    public Camera mainCamera;
+    public Texture2D handCursor;               // 手型图标
+    public Vector2 hotspotOffset = new Vector2(300, 300); // 热点偏移
+
     [Header("电源状态")]
     public bool powerOn = false;
 
@@ -27,25 +32,37 @@ public class DesktopPowerSwitch : MonoBehaviour
         if (buttonTransform != null)
             initialPos = buttonTransform.localPosition;
 
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
         UpdateUI();
     }
 
     void Update()
     {
-        // 鼠标点击检测
-        if (Input.GetMouseButtonDown(0))
+        // 射线检测
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                if (hit.collider != null && hit.collider.gameObject == gameObject)
+                // 鼠标悬停显示手型
+                if (handCursor != null)
+                {
+                    Cursor.SetCursor(handCursor, hotspotOffset, CursorMode.Auto);
+                }
+
+                // 点击切换电源
+                if (Input.GetMouseButtonDown(0))
                 {
                     TogglePower();
                 }
+                return;
             }
         }
+
+        // 未悬停恢复默认鼠标
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 
     void TogglePower()
@@ -68,6 +85,7 @@ public class DesktopPowerSwitch : MonoBehaviour
         // 播放音效
         if (audioSource != null)
         {
+            audioSource.Stop();
             audioSource.Play();
         }
     }

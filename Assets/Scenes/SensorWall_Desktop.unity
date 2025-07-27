@@ -1352,7 +1352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 473989668}
   - component: {fileID: 473989670}
-  - component: {fileID: 473989669}
+  - component: {fileID: 473989671}
   m_Layer: 0
   m_Name: SensorTriggerZone
   m_TagString: Untagged
@@ -1375,25 +1375,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 833369943163195949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &473989669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473989667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebdfe68ce736ebf4ca1366a1a22a7250, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tempText: {fileID: 1051733967}
-  currentText: {fileID: 1404451588}
-  voltageText: {fileID: 552645600}
-  startTemp: 23
-  targetTemp: 32
-  heatDuration: 12
-  handTag: Hand
 --- !u!65 &473989670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1415,6 +1396,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.026, y: 0.002, z: 0.002}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &473989671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473989667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a0b8e55f650224780bb407612d3d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempText: {fileID: 1051733967}
+  currentText: {fileID: 1404451588}
+  voltageText: {fileID: 552645600}
+  startTemp: 23
+  targetTemp: 32
+  heatDuration: 12
+  mainCamera: {fileID: 866260981}
+  handCursor: {fileID: 2800000, guid: f2e43b147efe7684593bdc3d419f4f85, type: 3}
+  hotspotOffset: {x: 300, y: 300}
 --- !u!1 &552645598
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,6 +3448,9 @@ MonoBehaviour:
   canvasLCD: {fileID: 589107421}
   distanceValueObj: {fileID: 854832088}
   audioSource: {fileID: 1959779252}
+  mainCamera: {fileID: 866260981}
+  handCursor: {fileID: 2800000, guid: f2e43b147efe7684593bdc3d419f4f85, type: 3}
+  hotspotOffset: {x: 300, y: 300}
   powerOn: 0
 --- !u!1 &2015710740
 GameObject:
