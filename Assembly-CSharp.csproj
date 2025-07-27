@@ -63,7 +63,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\VR\HideHintOnGrab.cs" />
     <Compile Include="Assets\Scripts\VR\PowerSwitch.cs" />
+    <Compile Include="Assets\Scripts\Desktop\MouseCursorManager.cs" />
     <Compile Include="Assets\Scripts\VR\PT100HeaterTrigger.cs" />
+    <Compile Include="Assets\Scripts\Desktop\GameManager.cs" />
     <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />

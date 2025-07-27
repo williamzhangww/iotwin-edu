@@ -63,12 +63,16 @@ public class DesktopPT100Heater : MonoBehaviour
         // 更新鼠标图标
         if (cursorOverPT100)
         {
-            if (handCursor != null)
-                Cursor.SetCursor(handCursor, hotspotOffset, CursorMode.Auto);
+            MouseCursorManager.SetHandCursor();
+
+            if (Input.GetMouseButton(0))
+            {
+                heating = true;
+            }
         }
         else
         {
-            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+            MouseCursorManager.ResetCursor();
         }
 
         // 平滑升温或降温

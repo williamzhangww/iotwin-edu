@@ -46,13 +46,8 @@ public class DesktopPowerSwitch : MonoBehaviour
         {
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                // 鼠标悬停显示手型
-                if (handCursor != null)
-                {
-                    Cursor.SetCursor(handCursor, hotspotOffset, CursorMode.Auto);
-                }
+                MouseCursorManager.SetHandCursor();
 
-                // 点击切换电源
                 if (Input.GetMouseButtonDown(0))
                 {
                     TogglePower();
@@ -61,8 +56,8 @@ public class DesktopPowerSwitch : MonoBehaviour
             }
         }
 
-        // 未悬停恢复默认鼠标
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        // 离开按钮
+        MouseCursorManager.ResetCursor();
     }
 
     void TogglePower()
