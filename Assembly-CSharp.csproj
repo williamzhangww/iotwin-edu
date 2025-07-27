@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\VR\PowerSwitch.cs" />
     <Compile Include="Assets\Scripts\VR\PT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPlayerController.cs" />
     <Compile Include="Assets\Scripts\VR\DT50_2_LaserSensor.cs" />
     <Compile Include="Assets\Scripts\Shared\CubeStickyToWall.cs" />

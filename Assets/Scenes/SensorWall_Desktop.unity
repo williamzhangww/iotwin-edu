@@ -1825,7 +1825,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 866260977}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &866260981
 Camera:
   m_ObjectHideFlags: 0
@@ -3257,8 +3257,8 @@ GameObject:
   - component: {fileID: 1959779254}
   - component: {fileID: 1959779253}
   - component: {fileID: 1959779252}
-  - component: {fileID: 1959779251}
-  m_Layer: 2
+  - component: {fileID: 1959779255}
+  m_Layer: 0
   m_Name: ButtonCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3280,28 +3280,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 23755561941301549}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1959779251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959779249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dad121551c7fd742b430944d998efbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserLine: {fileID: 7754427578138744471}
-  buttonAudio: {fileID: 1959779252}
-  redButtonTransform: {fileID: 1269036575643366770}
-  pressedY: 0.006
-  animationDuration: 0.1
-  redButtonRenderer: {fileID: 4007573452487684531}
-  powerOffColor: {r: 0.78431374, g: 0, b: 0, a: 1}
-  powerOnColor: {r: 0, g: 0.627451, b: 0, a: 1}
-  distanceValue: {fileID: 854832088}
-  canvasLCD: {fileID: 589107421}
 --- !u!82 &1959779252
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3441,12 +3419,34 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.012, y: 0.0020702023, z: 0.012}
   m_Center: {x: -0.00000001490116, y: 0.0022095991, z: 0.00000023939452}
+--- !u!114 &1959779255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959779249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 389537d0926c9a840bc8a305773c5b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonRenderer: {fileID: 4007573452487684531}
+  offColor: {r: 1, g: 0, b: 0, a: 1}
+  onColor: {r: 0, g: 1, b: 0, a: 1}
+  buttonTransform: {fileID: 1269036575643366770}
+  pressOffset: {x: 0, y: -0.005, z: 0}
+  laserLine: {fileID: 7754427578138744471}
+  canvasLCD: {fileID: 589107421}
+  distanceValueObj: {fileID: 854832088}
+  audioSource: {fileID: 1959779252}
+  powerOn: 0
 --- !u!1 &2015710740
 GameObject:
   m_ObjectHideFlags: 0
