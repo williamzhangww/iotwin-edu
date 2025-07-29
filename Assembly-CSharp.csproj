@@ -64,13 +64,15 @@
     <Compile Include="Assets\Scripts\VR\HideHintOnGrab.cs" />
     <Compile Include="Assets\Scripts\VR\PowerSwitch.cs" />
     <Compile Include="Assets\Scripts\Desktop\MouseCursorManager.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopCubeSelectMove.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopCameraController.cs" />
     <Compile Include="Assets\Scripts\VR\PT100HeaterTrigger.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopModeUI.cs" />
     <Compile Include="Assets\Scripts\Desktop\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Shared\DT50_2_LaserSensor.cs" />
     <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />
-    <Compile Include="Assets\Scripts\Desktop\DesktopPlayerController.cs" />
-    <Compile Include="Assets\Scripts\VR\DT50_2_LaserSensor.cs" />
     <Compile Include="Assets\Scripts\Shared\CubeStickyToWall.cs" />
   </ItemGroup>
   <ItemGroup>
