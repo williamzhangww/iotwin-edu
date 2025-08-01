@@ -11,7 +11,7 @@ public class TempHeater : MonoBehaviour
     [Header("Temperature Settings")]
     public float startTemp = 23f;
     public float targetTemp = 32f;
-    public float heatDuration = 12f; // second
+    public float heatDuration = 12f; // seconds
     public string handTag = "Hand";
 
     // Current - Temperature mapping
@@ -59,7 +59,7 @@ public class TempHeater : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"[TriggerEnter] 进入对象名: {other.name}, Tag: {other.tag}");
+        Debug.Log($"[TriggerEnter] Entered object name: {other.name}, Tag: {other.tag}");
         if (other.CompareTag(handTag))
         {
             Debug.Log(">> Hand enters");
@@ -69,7 +69,7 @@ public class TempHeater : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log($"[TriggerExit] 离开对象名: {other.name}, Tag: {other.tag}");
+        Debug.Log($"[TriggerExit] Exited object name: {other.name}, Tag: {other.tag}");
         if (other.CompareTag(handTag))
         {
             Debug.Log(">> Hand exits");

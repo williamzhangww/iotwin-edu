@@ -24,24 +24,23 @@ public class PlaneGrabTransformer : MonoBehaviour, ITransformer
     {
         Pose currentPose = _grabbable.GrabPoints[0];
 
-        // 获取旋转变化
+        // Get the rotation delta
         Quaternion deltaRotation = currentPose.rotation * Quaternion.Inverse(_initialGrabPose.rotation);
         float yAngle = deltaRotation.eulerAngles.y;
 
-        // 构造新的旋转：只保留 Y 轴变化
+        // Construct a new rotation: only keep Y-axis change
         Quaternion rotation = Quaternion.Euler(0f, yAngle, 0f);
 
-        // 用旋转作用在初始相对位移上
+        // Apply the rotation to the initial relative offset
         Vector3 initialOffset = _initialPosition - _initialGrabPose.position;
         Vector3 rotatedOffset = rotation * initialOffset;
 
-        // 设置新位置（抓取点不动，物体绕它转）
+        // Set the new position (grab point stays fixed, object rotates around it)
         Vector3 newPosition = currentPose.position + rotatedOffset;
-        newPosition.y = _initialPosition.y; // 锁定 Y 坐标
+        newPosition.y = _initialPosition.y; // Lock Y coordinate
 
         _grabbable.Transform.SetPositionAndRotation(newPosition, rotation * _initialRotation);
     }
-
 
     public void EndTransform()
     {

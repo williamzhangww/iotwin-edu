@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DesktopCubeSelectMove : MonoBehaviour
 {
-    [Header("Cube 移动参数")]
+    [Header("Cube Movement Parameters")]
     public float moveSpeed = 0.5f;
     public Color highlightColor = Color.yellow;
 
@@ -23,7 +23,7 @@ public class DesktopCubeSelectMove : MonoBehaviour
     {
         HandleMouseHoverAndClick();
 
-        //  选中时 WASD+QE 永远有效（不依赖鼠标悬停状态）
+        // When selected, WASD + Q/E is always effective (independent of mouse hover state)
         if (isSelected)
         {
             HandleMoveWorld();
@@ -31,7 +31,7 @@ public class DesktopCubeSelectMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 检查鼠标悬停和点击
+    /// Check for mouse hover and click
     /// </summary>
     void HandleMouseHoverAndClick()
     {
@@ -40,23 +40,23 @@ public class DesktopCubeSelectMove : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                // 鼠标悬停时显示手型
+                // Show hand cursor when hovering with the mouse
                 MouseCursorManager.SetHandCursor();
 
-                // 鼠标左键点击 → 切换选中
+                // Left mouse click → toggle selection
                 if (Input.GetMouseButtonDown(0))
                 {
                     DeselectAllCubesExceptThis();
                     ToggleSelect(true);
                 }
-                return; // 停止 ResetCursor
+                return; // Stop ResetCursor
             }
         }
 
-        // 鼠标不在 Cube 上 → 恢复默认鼠标
+        // Mouse not over the Cube → reset to default cursor
         MouseCursorManager.ResetCursor();
 
-        // 鼠标点击空白处 → 取消选中
+        // Mouse click on empty area → deselect
         if (Input.GetMouseButtonDown(0))
         {
             ToggleSelect(false);

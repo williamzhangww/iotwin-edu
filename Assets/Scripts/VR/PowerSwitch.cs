@@ -18,10 +18,10 @@ public class PowerSwitchSmooth : MonoBehaviour
     public Color powerOnColor = new Color(0f, 160f / 255f, 0f);   // #00A000
 
     [Header("LCD Display Control")]
-    public GameObject distanceValue;  // DT50下方Distance父物体
-    public GameObject canvasLCD;      // LCD整块画面
+    public GameObject distanceValue;  // Parent object for Distance under DT50
+    public GameObject canvasLCD;      // Whole LCD panel
 
-    // 默认是Power Off状态
+    // Default is Power Off state
     private bool isPowerOn = false;
     private bool isAnimating = false;
     private Vector3 originalPosition;
@@ -35,7 +35,7 @@ public class PowerSwitchSmooth : MonoBehaviour
             pressedPosition = new Vector3(originalPosition.x, pressedY, originalPosition.z);
         }
 
-        // 初始化状态为Power Off
+        // Initialize to Power Off state
         UpdateButtonColor();
         UpdateDisplayStatus();
 
@@ -114,7 +114,7 @@ public class PowerSwitchSmooth : MonoBehaviour
         redButtonTransform.localPosition = to;
     }
 
-    // 新增：对外暴露电源状态
+    // Public method to expose power state
     public bool IsPowerOn()
     {
         return isPowerOn;

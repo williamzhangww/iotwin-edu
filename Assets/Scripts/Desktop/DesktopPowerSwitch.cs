@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class DesktopPowerSwitch : MonoBehaviour
 {
-    [Header("按钮设置")]
+    [Header("Button Settings")]
     public Renderer buttonRenderer;
     public Color offColor = Color.red;
     public Color onColor = Color.green;
     public Transform buttonTransform;
     public Vector3 pressOffset = new Vector3(0, -0.005f, 0);
 
-    [Header("显示对象")]
-    public LineRenderer laserLine;      // 只控制激光
+    [Header("Display Objects")]
+    public LineRenderer laserLine;      // Controls only the laser
     public GameObject canvasLCD;
     public GameObject distanceValueObj;
 
-    [Header("音效")]
+    [Header("Sound Effects")]
     public AudioSource audioSource;
 
-    [Header("电源状态")]
+    [Header("Power State")]
     public bool powerOn = false;
 
     private Vector3 initialPos;
@@ -35,24 +35,24 @@ public class DesktopPowerSwitch : MonoBehaviour
 
     void Update()
     {
-        // 检测射线是否命中按钮
+        // Check if raycast hits the button
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                // 鼠标悬停 → 手型
+                // Mouse hover → show hand cursor
                 MouseCursorManager.SetHandCursor();
 
                 if (Input.GetMouseButtonDown(0))
                 {
                     TogglePower();
                 }
-                return; // 悬停时退出，不重置鼠标
+                return; // Exit if hovering, do not reset cursor
             }
         }
 
-        // 未命中按钮 → 恢复鼠标
+        // Not hitting the button → reset mouse cursor
         MouseCursorManager.ResetCursor();
     }
 
@@ -60,20 +60,20 @@ public class DesktopPowerSwitch : MonoBehaviour
     {
         powerOn = !powerOn;
 
-        // 按钮动画
+        // Button animation
         if (buttonTransform != null)
             buttonTransform.localPosition = initialPos + (powerOn ? pressOffset : Vector3.zero);
 
-        // 改变按钮颜色
+        // Change button color
         if (buttonRenderer != null)
             buttonRenderer.material.color = powerOn ? onColor : offColor;
 
-        // 激活/隐藏 UI：只隐藏激光，不隐藏整个DT50
+        // Activate/deactivate UI: only hide the laser, not the entire DT50
         if (laserLine != null) laserLine.enabled = powerOn;
         if (canvasLCD != null) canvasLCD.SetActive(powerOn);
         if (distanceValueObj != null) distanceValueObj.SetActive(powerOn);
 
-        // 播放音效
+        // Play sound effect
         if (audioSource != null)
         {
             audioSource.Stop();

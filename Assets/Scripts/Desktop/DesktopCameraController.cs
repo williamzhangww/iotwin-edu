@@ -7,8 +7,8 @@ public class DesktopCameraController : MonoBehaviour
     public float lookSpeed = 2.0f;
     public Transform cameraTransform;
 
-    [Header("UI 设置")]
-    public TextMeshProUGUI modeText;  // 左下角 UI 文本
+    [Header("UI Settings")]
+    public TextMeshProUGUI modeText;  // Bottom-left UI text
 
     private CharacterController controller;
     private float rotationX = 0f;
@@ -18,14 +18,14 @@ public class DesktopCameraController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         LockCursor();
         Cursor.visible = true;
-        UpdateModeText(false); // 默认 Camera Mode
+        UpdateModeText(false); // Default to Camera Mode
     }
 
     void Update()
     {
         HandleMouseLock();
 
-        // 鼠标右键旋转 (两种模式都允许)
+        // Right mouse button rotates (allowed in both modes)
         if (Cursor.lockState == CursorLockMode.Confined && Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
@@ -39,13 +39,13 @@ public class DesktopCameraController : MonoBehaviour
                 cameraTransform.localRotation = Quaternion.Euler(rotationX, 0f, 0f);
         }
 
-        // 检查是否有 Cube 被选中
+        // Check if any Cube is selected
         bool anyCubeSelected = IsAnyCubeSelected();
 
-        // 更新左下角 UI 提示
+        // Update the bottom-left UI hint
         UpdateModeText(anyCubeSelected);
 
-        //  只有没有 Cube 被选中时，Camera 才能移动
+        // Camera can only move when no Cube is selected
         if (!anyCubeSelected)
         {
             HandleCameraMove();
@@ -71,7 +71,7 @@ public class DesktopCameraController : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        // Q / E 控制上下移动
+        // Q / E control up and down movement
         float y = 0f;
         if (Input.GetKey(KeyCode.Q)) y = 1f;
         if (Input.GetKey(KeyCode.E)) y = -1f;
@@ -105,7 +105,7 @@ public class DesktopCameraController : MonoBehaviour
     }
 
     /// <summary>
-    /// 更新左下角 UI 提示
+    /// Update the bottom-left UI hint
     /// </summary>
     void UpdateModeText(bool isCubeMode)
     {

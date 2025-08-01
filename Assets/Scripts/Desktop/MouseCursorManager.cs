@@ -2,12 +2,12 @@ using UnityEngine;
 
 public static class MouseCursorManager
 {
-    // 手型光标资源（初始化时设置）
+    // Hand cursor resource (set during initialization)
     public static Texture2D handCursor;
     public static Vector2 hotspotOffset = new Vector2(300, 300);
 
     /// <summary>
-    /// 设置为手型光标
+    /// Set the cursor to the hand icon
     /// </summary>
     public static void SetHandCursor()
     {
@@ -18,7 +18,7 @@ public static class MouseCursorManager
     }
 
     /// <summary>
-    /// 恢复默认光标
+    /// Reset the cursor to the default
     /// </summary>
     public static void ResetCursor()
     {

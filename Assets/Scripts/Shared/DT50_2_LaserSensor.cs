@@ -5,14 +5,14 @@ using TMPro;
 public class DT50_2_LaserSensor : MonoBehaviour
 {
     [Header("References")]
-    public Transform laserOrigin;         // 激光发射点（空物体）
-    public Transform laserSpot;           // 命中光斑（Quad 或空物体）
-    public TextMeshPro distanceText;      // 浮动文字（你原来的 DistanceValue）
+    public Transform laserOrigin;         // Laser emission point (empty GameObject)
+    public Transform laserSpot;           // Hit spot (Quad or empty GameObject)
+    public TextMeshPro distanceText;      // Floating text (your original DistanceValue)
 
     [Header("Settings")]
-    public float minDistance = 0.2f;      // 最小测距（米）
-    public float maxDistance = 30f;       // 最大测距（米）
-    public LayerMask raycastMask;         // 可检测的目标层（排除手/身体）
+    public float minDistance = 0.2f;      // Minimum distance (meters)
+    public float maxDistance = 30f;       // Maximum distance (meters)
+    public LayerMask raycastMask;         // Target layers to detect (exclude hand/body)
 
     private LineRenderer laserLine;
 
@@ -24,7 +24,7 @@ public class DT50_2_LaserSensor : MonoBehaviour
         laserLine.endWidth = 0.001f;
 
         if (distanceText != null)
-            distanceText.gameObject.SetActive(false); // 初始隐藏
+            distanceText.gameObject.SetActive(false); // Initially hidden
     }
 
     void Update()
@@ -35,17 +35,17 @@ public class DT50_2_LaserSensor : MonoBehaviour
         Ray ray = new Ray(origin, direction);
         RaycastHit hit;
 
-        laserLine.SetPosition(0, origin); // 激光起点
+        laserLine.SetPosition(0, origin); // Laser start point
 
         if (Physics.Raycast(ray, out hit, maxDistance, raycastMask))
         {
             float distance = hit.distance;
             Vector3 hitPoint = hit.point;
 
-            // 设置激光终点为命中点
+            // Set laser end point to the hit point
             laserLine.SetPosition(1, hitPoint);
 
-            // 显示激光光斑
+            // Show laser spot
             if (laserSpot != null)
             {
                 laserSpot.position = hitPoint + hit.normal * 0.001f;
@@ -53,13 +53,13 @@ public class DT50_2_LaserSensor : MonoBehaviour
                 laserSpot.gameObject.SetActive(true);
             }
 
-            // 有效距离内显示距离文字
+            // Show distance text if within valid range
             if (distance >= minDistance && distance <= maxDistance && distanceText != null)
             {
-                distanceText.text = $"{(distance * 1000f):F0} mm"; // 毫米整数
+                distanceText.text = $"{(distance * 1000f):F0} mm"; // Millimeter integer
                 Vector3 camRight = Camera.main.transform.right;
                 distanceText.transform.position = hitPoint + hit.normal * 0.11f - camRight * 0.03f;
-                distanceText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward); // 面向摄像头
+                distanceText.transform.rotation = Quaternion.LookRotation(Camera.main.transform.forward); // Face the camera
                 distanceText.gameObject.SetActive(true);
             }
             else if (distanceText != null)
@@ -69,7 +69,7 @@ public class DT50_2_LaserSensor : MonoBehaviour
         }
         else
         {
-            // 没有命中物体 → 激光拉满，光斑隐藏，标签隐藏
+            // No hit → laser at full length, hide spot and label
             laserLine.SetPosition(1, origin + direction * maxDistance);
 
             if (laserSpot != null)

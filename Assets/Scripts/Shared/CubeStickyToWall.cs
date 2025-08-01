@@ -8,7 +8,8 @@ public class CubeStickyToWall : MonoBehaviour
     {
         if (collision.gameObject.name == "Board")
         {
-            transform.SetParent(collision.transform.root); // 设置为 Wall v1 的子物体
+            // Set as a child of Wall
+            transform.SetParent(collision.transform.root);
             isOnWall = true;
         }
     }
@@ -17,7 +18,8 @@ public class CubeStickyToWall : MonoBehaviour
     {
         if (collision.gameObject.name == "Board" && isOnWall)
         {
-            transform.SetParent(null); // 脱离
+            // Detach from the wall
+            transform.SetParent(null);
             isOnWall = false;
         }
     }

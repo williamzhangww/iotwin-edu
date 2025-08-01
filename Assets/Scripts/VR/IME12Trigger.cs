@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class IME12Trigger : MonoBehaviour
 {
-    [Header("LED 控制")]
-    public MeshRenderer ledRenderer;   // 拖 IME12_LED 的 MeshRenderer
-    public Material offMaterial;       // 灯灭材质
-    public Material onMaterial;        // 灯亮材质
+    [Header("LED Control")]
+    public MeshRenderer ledRenderer;   // Drag the MeshRenderer of IME12_LED here
+    public Material offMaterial;       // Material when LED is off
+    public Material onMaterial;        // Material when LED is on
 
-    [Header("Power Switch 关联")]
-    public PowerSwitchSmooth powerSwitch;   // 拖 PowerSwitchSmooth 脚本的对象进来
+    [Header("Power Switch Reference")]
+    public PowerSwitchSmooth powerSwitch;   // Drag the object with the PowerSwitchSmooth script here
 
     private bool isInside = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        // 如果电源是关闭状态，不响应
+        // Do not respond if the power is off
         if (powerSwitch != null && !powerSwitch.IsPowerOn())
         {
             SetLedOff();
@@ -39,14 +39,14 @@ public class IME12Trigger : MonoBehaviour
 
     private void Update()
     {
-        // 如果电源关了，直接关灯
+        // If power is off, turn off the LED directly
         if (powerSwitch != null && !powerSwitch.IsPowerOn())
         {
             SetLedOff();
             return;
         }
 
-        // 如果电源开着且不在触发器内，保证灯是灭的
+        // If power is on but nothing is inside the trigger, ensure the LED is off
         if (!isInside)
         {
             SetLedOff();

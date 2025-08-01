@@ -3,8 +3,8 @@ using TMPro;
 
 public class DesktopModeUI : MonoBehaviour
 {
-    public DesktopCubeSelectMove cubeScript;  // Cube 脚本引用
-    public TextMeshProUGUI modeText;          // UI 文本引用
+    public DesktopCubeSelectMove cubeScript;  // Reference to the Cube script
+    public TextMeshProUGUI modeText;          // Reference to the UI text
 
     void Update()
     {
@@ -12,11 +12,11 @@ public class DesktopModeUI : MonoBehaviour
         {
             if (cubeScript.IsSelected)
             {
-                modeText.text = "[Cube Mode] WASD + Q/E\n用来移动 Cube";
+                modeText.text = "[Cube Mode] WASD + Q/E\nUsed to move the Cube";
             }
             else
             {
-                modeText.text = "[Camera Mode] WASD + Q/E\n用来移动 Camera";
+                modeText.text = "[Camera Mode] WASD + Q/E\nUsed to move the Camera";
             }
         }
     }

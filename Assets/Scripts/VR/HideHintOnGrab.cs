@@ -4,8 +4,8 @@ using Oculus.Interaction;
 
 public class HideHintOnGrab : MonoBehaviour
 {
-    [SerializeField] private GameObject hintTextObject; // 提示文字对象
-    [SerializeField] private float hideDelay = 5f;      // 抓取后延迟隐藏时间
+    [SerializeField] private GameObject hintTextObject; // Hint text object
+    [SerializeField] private float hideDelay = 5f;      // Delay time to hide after grabbing
 
     private Grabbable grabbable;
     private bool hasStartedHideCountdown = false;
@@ -19,7 +19,7 @@ public class HideHintOnGrab : MonoBehaviour
     {
         if (hintTextObject != null)
         {
-            hintTextObject.SetActive(true); // 初始显示
+            hintTextObject.SetActive(true); // Show initially
         }
     }
 
