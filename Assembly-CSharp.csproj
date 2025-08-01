@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPT100HeaterTrigger.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />
+    <Compile Include="Assets\Scripts\VR\IME12Trigger.cs" />
     <Compile Include="Assets\Scripts\Shared\CubeStickyToWall.cs" />
   </ItemGroup>
   <ItemGroup>

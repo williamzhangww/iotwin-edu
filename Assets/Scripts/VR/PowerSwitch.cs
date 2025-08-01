@@ -22,7 +22,7 @@ public class PowerSwitchSmooth : MonoBehaviour
     public GameObject canvasLCD;      // LCD整块画面
 
     // 默认是Power Off状态
-    private bool isLaserOn = false;
+    private bool isPowerOn = false;
     private bool isAnimating = false;
     private Vector3 originalPosition;
     private Vector3 pressedPosition;
@@ -40,7 +40,7 @@ public class PowerSwitchSmooth : MonoBehaviour
         UpdateDisplayStatus();
 
         if (laserLine != null)
-            laserLine.enabled = isLaserOn;
+            laserLine.enabled = isPowerOn;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -49,17 +49,17 @@ public class PowerSwitchSmooth : MonoBehaviour
 
         if (other.CompareTag("Hand") || other.name.Contains("Hand") || other.name.Contains("Interactor"))
         {
-            ToggleLaser();
+            TogglePower();
             StartCoroutine(AnimatePressAndRelease());
         }
     }
 
-    private void ToggleLaser()
+    private void TogglePower()
     {
-        isLaserOn = !isLaserOn;
+        isPowerOn = !isPowerOn;
 
         if (laserLine != null)
-            laserLine.enabled = isLaserOn;
+            laserLine.enabled = isPowerOn;
 
         if (buttonAudio != null)
         {
@@ -75,17 +75,17 @@ public class PowerSwitchSmooth : MonoBehaviour
     {
         if (redButtonRenderer != null && redButtonRenderer.material != null)
         {
-            redButtonRenderer.material.color = isLaserOn ? powerOnColor : powerOffColor;
+            redButtonRenderer.material.color = isPowerOn ? powerOnColor : powerOffColor;
         }
     }
 
     private void UpdateDisplayStatus()
     {
         if (distanceValue != null)
-            distanceValue.SetActive(isLaserOn);
+            distanceValue.SetActive(isPowerOn);
 
         if (canvasLCD != null)
-            canvasLCD.SetActive(isLaserOn);
+            canvasLCD.SetActive(isPowerOn);
     }
 
     private IEnumerator AnimatePressAndRelease()
@@ -112,5 +112,11 @@ public class PowerSwitchSmooth : MonoBehaviour
         }
 
         redButtonTransform.localPosition = to;
+    }
+
+    // 新增：对外暴露电源状态
+    public bool IsPowerOn()
+    {
+        return isPowerOn;
     }
 }
