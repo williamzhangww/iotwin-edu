@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Shared\DT50_2_LaserSensor.cs" />
     <Compile Include="Assets\Scripts\VR\PlaneGrabTransformer.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPT100HeaterTrigger.cs" />
+    <Compile Include="Assets\Scripts\Desktop\DesktopIME12LightController.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />
     <Compile Include="Assets\Scripts\VR\ForcePassthrough.cs" />
     <Compile Include="Assets\Scripts\VR\IME12Trigger.cs" />
