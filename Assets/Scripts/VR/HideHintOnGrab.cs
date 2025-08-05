@@ -5,7 +5,7 @@ using Oculus.Interaction;
 public class HideHintOnGrab : MonoBehaviour
 {
     [SerializeField] private GameObject hintTextObject; // Hint text object
-    [SerializeField] private float hideDelay = 5f;      // Delay time to hide after grabbing
+    [SerializeField] private float hideDelay = 3f;      // Delay time to hide after grabbing
 
     private Grabbable grabbable;
     private bool hasStartedHideCountdown = false;

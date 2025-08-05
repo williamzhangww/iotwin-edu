@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class TempHeater : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class TempHeater : MonoBehaviour
     public float targetTemp = 32f;
     public float heatDuration = 12f; // seconds
     public string handTag = "Hand";
+
+    [Header("Hint Text")]
+    public GameObject hintTextObject;   // Hint text object
+    public float hintHideDelay = 3f;    // Delay before hiding the hint
 
     // Current - Temperature mapping
     private const float refTemp1 = 24.5f;
@@ -28,11 +33,18 @@ public class TempHeater : MonoBehaviour
 
     private float currentTemp;
     private bool heating = false;
+    private bool hasStartedHide = false;
 
     void Start()
     {
         currentTemp = startTemp;
         UpdateDisplays(currentTemp);
+
+        // Show the hint initially
+        if (hintTextObject != null)
+        {
+            hintTextObject.SetActive(true);
+        }
     }
 
     void Update()
@@ -64,6 +76,13 @@ public class TempHeater : MonoBehaviour
         {
             Debug.Log(">> Hand enters");
             heating = true;
+
+            // On first hand entry, start the countdown to hide the hint
+            if (!hasStartedHide)
+            {
+                hasStartedHide = true;
+                StartCoroutine(HideHintAfterDelay());
+            }
         }
     }
 
@@ -74,6 +93,16 @@ public class TempHeater : MonoBehaviour
         {
             Debug.Log(">> Hand exits");
             heating = false;
+        }
+    }
+
+    private IEnumerator HideHintAfterDelay()
+    {
+        yield return new WaitForSeconds(hintHideDelay);
+
+        if (hintTextObject != null)
+        {
+            hintTextObject.SetActive(false);
         }
     }
 }

@@ -75,8 +75,10 @@
     <Compile Include="Assets\Scripts\Desktop\DesktopIME12LightController.cs" />
     <Compile Include="Assets\Scripts\Desktop\DesktopPowerSwitch.cs" />
     <Compile Include="Assets\Scripts\VR\ForcePassthrough.cs" />
+    <Compile Include="Assets\Scripts\Desktop\HideHintOnCubeMove.cs" />
     <Compile Include="Assets\Scripts\VR\IME12Trigger.cs" />
     <Compile Include="Assets\Scripts\Shared\CubeStickyToWall.cs" />
+    <Compile Include="Assets\Scripts\Desktop\HideHintOnKeyPress.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

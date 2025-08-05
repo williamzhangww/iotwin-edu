@@ -12,6 +12,9 @@ public class DesktopCubeSelectMove : MonoBehaviour
 
     public bool IsSelected => isSelected;
 
+    [Header("Hint Hiding")]
+    public HideHintOnCubeMove hintHider;  // Reference to hint-hiding script on the same object
+
     void Start()
     {
         cubeRenderer = GetComponent<Renderer>();
@@ -23,7 +26,7 @@ public class DesktopCubeSelectMove : MonoBehaviour
     {
         HandleMouseHoverAndClick();
 
-        // When selected, WASD + Q/E is always effective (independent of mouse hover state)
+        // When selected, WASD + Q/E controls movement
         if (isSelected)
         {
             HandleMoveWorld();
@@ -31,7 +34,7 @@ public class DesktopCubeSelectMove : MonoBehaviour
     }
 
     /// <summary>
-    /// Check for mouse hover and click
+    /// Handle mouse hover and selection click
     /// </summary>
     void HandleMouseHoverAndClick()
     {
@@ -40,29 +43,28 @@ public class DesktopCubeSelectMove : MonoBehaviour
         {
             if (hit.collider.gameObject == gameObject)
             {
-                // Show hand cursor when hovering with the mouse
                 MouseCursorManager.SetHandCursor();
 
-                // Left mouse click ¡ú toggle selection
                 if (Input.GetMouseButtonDown(0))
                 {
                     DeselectAllCubesExceptThis();
                     ToggleSelect(true);
                 }
-                return; // Stop ResetCursor
+                return;
             }
         }
 
-        // Mouse not over the Cube ¡ú reset to default cursor
         MouseCursorManager.ResetCursor();
 
-        // Mouse click on empty area ¡ú deselect
         if (Input.GetMouseButtonDown(0))
         {
             ToggleSelect(false);
         }
     }
 
+    /// <summary>
+    /// Move cube in world space using WASD + Q/E
+    /// </summary>
     void HandleMoveWorld()
     {
         Vector3 move = Vector3.zero;
@@ -74,9 +76,21 @@ public class DesktopCubeSelectMove : MonoBehaviour
         if (Input.GetKey(KeyCode.Q)) move += Vector3.up;
         if (Input.GetKey(KeyCode.E)) move += Vector3.down;
 
-        transform.position += move * moveSpeed * Time.deltaTime;
+        if (move != Vector3.zero)
+        {
+            transform.position += move * moveSpeed * Time.deltaTime;
+
+            // Notify hint hider to start countdown
+            if (hintHider != null)
+            {
+                hintHider.TriggerHideCountdown();
+            }
+        }
     }
 
+    /// <summary>
+    /// Toggle selection state and update color
+    /// </summary>
     void ToggleSelect(bool select)
     {
         isSelected = select;
@@ -86,6 +100,9 @@ public class DesktopCubeSelectMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Deselect all other cubes except this one
+    /// </summary>
     void DeselectAllCubesExceptThis()
     {
 #if UNITY_2023_1_OR_NEWER

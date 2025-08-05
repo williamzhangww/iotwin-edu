@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class DesktopPowerSwitch : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class DesktopPowerSwitch : MonoBehaviour
     public Vector3 pressOffset = new Vector3(0, -0.005f, 0);
 
     [Header("Display Objects")]
-    public LineRenderer laserLine;      // Controls only the laser
+    public LineRenderer laserLine;
     public GameObject canvasLCD;
     public GameObject distanceValueObj;
 
@@ -20,8 +21,13 @@ public class DesktopPowerSwitch : MonoBehaviour
     [Header("Power State")]
     public bool powerOn = false;
 
+    [Header("Hint Text")]
+    public GameObject hintTextObject;      // Bound hint text object
+    public float hintHideDelay = 3f;       // Delay before hiding the hint (seconds)
+
     private Vector3 initialPos;
     private Camera mainCamera;
+    private bool hasStartedHide = false;
 
     void Start()
     {
@@ -30,29 +36,35 @@ public class DesktopPowerSwitch : MonoBehaviour
 
         mainCamera = Camera.main;
 
+        if (hintTextObject != null)
+            hintTextObject.SetActive(true); // Show hint initially
+
         UpdateUI();
     }
 
     void Update()
     {
-        // Check if raycast hits the button
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider != null && hit.collider.gameObject == gameObject)
             {
-                // Mouse hover ¡ú show hand cursor
                 MouseCursorManager.SetHandCursor();
 
                 if (Input.GetMouseButtonDown(0))
                 {
                     TogglePower();
+
+                    if (!hasStartedHide && hintTextObject != null)
+                    {
+                        hasStartedHide = true;
+                        StartCoroutine(HideHintAfterDelay());
+                    }
                 }
-                return; // Exit if hovering, do not reset cursor
+                return;
             }
         }
 
-        // Not hitting the button ¡ú reset mouse cursor
         MouseCursorManager.ResetCursor();
     }
 
@@ -60,20 +72,16 @@ public class DesktopPowerSwitch : MonoBehaviour
     {
         powerOn = !powerOn;
 
-        // Button animation
         if (buttonTransform != null)
             buttonTransform.localPosition = initialPos + (powerOn ? pressOffset : Vector3.zero);
 
-        // Change button color
         if (buttonRenderer != null)
             buttonRenderer.material.color = powerOn ? onColor : offColor;
 
-        // Activate/deactivate UI: only hide the laser, not the entire DT50
         if (laserLine != null) laserLine.enabled = powerOn;
         if (canvasLCD != null) canvasLCD.SetActive(powerOn);
         if (distanceValueObj != null) distanceValueObj.SetActive(powerOn);
 
-        // Play sound effect
         if (audioSource != null)
         {
             audioSource.Stop();
@@ -89,5 +97,13 @@ public class DesktopPowerSwitch : MonoBehaviour
         if (laserLine != null) laserLine.enabled = powerOn;
         if (canvasLCD != null) canvasLCD.SetActive(powerOn);
         if (distanceValueObj != null) distanceValueObj.SetActive(powerOn);
+    }
+
+    private IEnumerator HideHintAfterDelay()
+    {
+        yield return new WaitForSeconds(hintHideDelay);
+
+        if (hintTextObject != null)
+            hintTextObject.SetActive(false);
     }
 }
