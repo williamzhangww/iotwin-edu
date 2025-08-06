@@ -1,9 +1,9 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class HideHintOnKeyPress : MonoBehaviour
 {
-    [SerializeField] private GameObject hintTextObject;  // Hint text to display
+    [SerializeField] private GameObject hintTextObject;  // Hint text to show/hide
     [SerializeField] private float hideDelay = 3f;       // Delay before hiding the hint
 
     private bool hasStartedHideCountdown = false;
@@ -11,39 +11,44 @@ public class HideHintOnKeyPress : MonoBehaviour
     void Start()
     {
         if (hintTextObject != null)
-        {
-            hintTextObject.SetActive(true); // Show hint at startup
-        }
+            hintTextObject.SetActive(true);
     }
 
     void Update()
     {
-        if (!hasStartedHideCountdown && IsMovementKeyPressed())
+        if (!hasStartedHideCountdown && AnyMovementKeyPressed() && !IsAnyCubeSelected())
         {
             hasStartedHideCountdown = true;
             StartCoroutine(HideAfterDelay());
         }
     }
 
-    /// <summary>
-    /// Check if any movement key has been pressed (WASD + Q/E)
-    /// </summary>
-    bool IsMovementKeyPressed()
+    private bool AnyMovementKeyPressed()
     {
-        return Input.GetKeyDown(KeyCode.W) ||
-               Input.GetKeyDown(KeyCode.A) ||
-               Input.GetKeyDown(KeyCode.S) ||
-               Input.GetKeyDown(KeyCode.D) ||
-               Input.GetKeyDown(KeyCode.Q) ||
-               Input.GetKeyDown(KeyCode.E);
+        return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+               Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) ||
+               Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E);
+    }
+
+    private bool IsAnyCubeSelected()
+    {
+#if UNITY_2023_1_OR_NEWER
+        var cubes = Object.FindObjectsByType<DesktopCubeSelectMove>(FindObjectsSortMode.None);
+#else
+        var cubes = Object.FindObjectsOfType<DesktopCubeSelectMove>();
+#endif
+        foreach (var cube in cubes)
+        {
+            if (cube.IsSelected) return true;
+        }
+        return false;
     }
 
     private IEnumerator HideAfterDelay()
     {
         yield return new WaitForSeconds(hideDelay);
+
         if (hintTextObject != null)
-        {
             hintTextObject.SetActive(false);
-        }
     }
 }

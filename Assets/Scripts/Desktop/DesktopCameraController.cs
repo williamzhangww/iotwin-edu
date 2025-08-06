@@ -16,8 +16,9 @@ public class DesktopCameraController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        LockCursor();
         Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         UpdateModeText(false); // Default to Camera Mode
     }
 
@@ -25,8 +26,8 @@ public class DesktopCameraController : MonoBehaviour
     {
         HandleMouseLock();
 
-        // Right mouse button rotates (allowed in both modes)
-        if (Cursor.lockState == CursorLockMode.Confined && Input.GetMouseButton(1))
+        // Right mouse button: rotate view
+        if (Cursor.lockState == CursorLockMode.Locked && Input.GetMouseButton(1))
         {
             float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
             float mouseY = Input.GetAxis("Mouse Y") * lookSpeed;
@@ -42,16 +43,19 @@ public class DesktopCameraController : MonoBehaviour
         // Check if any Cube is selected
         bool anyCubeSelected = IsAnyCubeSelected();
 
-        // Update the bottom-left UI hint
+        // Update mode text on UI
         UpdateModeText(anyCubeSelected);
 
-        // Camera can only move when no Cube is selected
+        // Allow camera movement only when no Cube is selected
         if (!anyCubeSelected)
         {
             HandleCameraMove();
         }
     }
 
+    /// <summary>
+    /// Check if any Cube is currently selected
+    /// </summary>
     bool IsAnyCubeSelected()
     {
 #if UNITY_2023_1_OR_NEWER
@@ -66,12 +70,14 @@ public class DesktopCameraController : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Camera movement (only when no Cube is selected)
+    /// </summary>
     void HandleCameraMove()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        // Q / E control up and down movement
         float y = 0f;
         if (Input.GetKey(KeyCode.Q)) y = 1f;
         if (Input.GetKey(KeyCode.E)) y = -1f;
@@ -80,22 +86,25 @@ public class DesktopCameraController : MonoBehaviour
         controller.Move(move * moveSpeed * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Handle mouse lock logic
+    /// </summary>
     void HandleMouseLock()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            UnlockCursor();
-        }
-        else if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
             LockCursor();
+        }
+        else
+        {
+            UnlockCursor();
         }
     }
 
     void LockCursor()
     {
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void UnlockCursor()
@@ -105,7 +114,7 @@ public class DesktopCameraController : MonoBehaviour
     }
 
     /// <summary>
-    /// Update the bottom-left UI hint
+    /// Update the bottom-left mode text
     /// </summary>
     void UpdateModeText(bool isCubeMode)
     {

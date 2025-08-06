@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class DesktopPowerSwitch : MonoBehaviour
+public class DesktopPowerSwitch : MonoBehaviour, IMouseHoverInteractable
 {
     [Header("Button Settings")]
     public Renderer buttonRenderer;
@@ -22,11 +22,10 @@ public class DesktopPowerSwitch : MonoBehaviour
     public bool powerOn = false;
 
     [Header("Hint Text")]
-    public GameObject hintTextObject;      // Bound hint text object
-    public float hintHideDelay = 3f;       // Delay before hiding the hint (seconds)
+    public GameObject hintTextObject;
+    public float hintHideDelay = 3f;
 
     private Vector3 initialPos;
-    private Camera mainCamera;
     private bool hasStartedHide = false;
 
     void Start()
@@ -34,38 +33,24 @@ public class DesktopPowerSwitch : MonoBehaviour
         if (buttonTransform != null)
             initialPos = buttonTransform.localPosition;
 
-        mainCamera = Camera.main;
-
         if (hintTextObject != null)
-            hintTextObject.SetActive(true); // Show hint initially
+            hintTextObject.SetActive(true);
 
         UpdateUI();
     }
 
-    void Update()
+    public void OnMouseHoverEnter() => MouseCursorManager.SetHandCursor();
+    public void OnMouseHoverExit() => MouseCursorManager.ResetCursor();
+
+    public void OnMouseClick()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        TogglePower();
+
+        if (!hasStartedHide && hintTextObject != null)
         {
-            if (hit.collider != null && hit.collider.gameObject == gameObject)
-            {
-                MouseCursorManager.SetHandCursor();
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    TogglePower();
-
-                    if (!hasStartedHide && hintTextObject != null)
-                    {
-                        hasStartedHide = true;
-                        StartCoroutine(HideHintAfterDelay());
-                    }
-                }
-                return;
-            }
+            hasStartedHide = true;
+            StartCoroutine(HideHintAfterDelay());
         }
-
-        MouseCursorManager.ResetCursor();
     }
 
     void TogglePower()
@@ -99,10 +84,9 @@ public class DesktopPowerSwitch : MonoBehaviour
         if (distanceValueObj != null) distanceValueObj.SetActive(powerOn);
     }
 
-    private IEnumerator HideHintAfterDelay()
+    IEnumerator HideHintAfterDelay()
     {
         yield return new WaitForSeconds(hintHideDelay);
-
         if (hintTextObject != null)
             hintTextObject.SetActive(false);
     }

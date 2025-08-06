@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class DesktopCubeSelectMove : MonoBehaviour
+public class DesktopCubeSelectMove : MonoBehaviour, IMouseHoverInteractable
 {
     [Header("Cube Movement Parameters")]
     public float moveSpeed = 0.5f;
     public Color highlightColor = Color.yellow;
 
+    [Header("Hint Hiding")]
+    public HideHintOnCubeMove hintHider;  // Hint controller script
+
     private Color originalColor;
     private Renderer cubeRenderer;
     private bool isSelected = false;
+    private bool isHovering = false;
 
     public bool IsSelected => isSelected;
-
-    [Header("Hint Hiding")]
-    public HideHintOnCubeMove hintHider;  // Reference to hint-hiding script on the same object
 
     void Start()
     {
@@ -24,46 +25,20 @@ public class DesktopCubeSelectMove : MonoBehaviour
 
     void Update()
     {
-        HandleMouseHoverAndClick();
-
-        // When selected, WASD + Q/E controls movement
         if (isSelected)
         {
             HandleMoveWorld();
         }
-    }
 
-    /// <summary>
-    /// Handle mouse hover and selection click
-    /// </summary>
-    void HandleMouseHoverAndClick()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            if (hit.collider.gameObject == gameObject)
-            {
-                MouseCursorManager.SetHandCursor();
-
-                if (Input.GetMouseButtonDown(0))
-                {
-                    DeselectAllCubesExceptThis();
-                    ToggleSelect(true);
-                }
-                return;
-            }
-        }
-
-        MouseCursorManager.ResetCursor();
-
-        if (Input.GetMouseButtonDown(0))
+        // Click on empty area to deselect
+        if (!isHovering && Input.GetMouseButtonDown(0))
         {
             ToggleSelect(false);
         }
     }
 
     /// <summary>
-    /// Move cube in world space using WASD + Q/E
+    /// Handles cube movement
     /// </summary>
     void HandleMoveWorld()
     {
@@ -80,16 +55,14 @@ public class DesktopCubeSelectMove : MonoBehaviour
         {
             transform.position += move * moveSpeed * Time.deltaTime;
 
-            // Notify hint hider to start countdown
+            // Notify the hint script to start hiding countdown
             if (hintHider != null)
-            {
                 hintHider.TriggerHideCountdown();
-            }
         }
     }
 
     /// <summary>
-    /// Toggle selection state and update color
+    /// Toggle selection state
     /// </summary>
     void ToggleSelect(bool select)
     {
@@ -101,7 +74,7 @@ public class DesktopCubeSelectMove : MonoBehaviour
     }
 
     /// <summary>
-    /// Deselect all other cubes except this one
+    /// Deselect all other cubes
     /// </summary>
     void DeselectAllCubesExceptThis()
     {
@@ -115,5 +88,24 @@ public class DesktopCubeSelectMove : MonoBehaviour
             if (cube != this)
                 cube.ToggleSelect(false);
         }
+    }
+
+    // --- Mouse hover interface (called by MouseHoverDispatcher) ---
+    public void OnMouseHoverEnter()
+    {
+        isHovering = true;
+        MouseCursorManager.SetHandCursor();
+    }
+
+    public void OnMouseHoverExit()
+    {
+        isHovering = false;
+        MouseCursorManager.ResetCursor();
+    }
+
+    public void OnMouseClick()
+    {
+        DeselectAllCubesExceptThis();
+        ToggleSelect(true);
     }
 }
